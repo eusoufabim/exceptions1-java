@@ -1,6 +1,5 @@
 package application;
 
-//import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,14 +34,11 @@ public class Program {
 			System.out.print("Data de Check-out (dd/MM/yyyy): ");
 			checkout = sdf.parse(sc.next());
 			
-			Date now = new Date();
+			String erro = r.atualizarDatas(checkin, checkout);
 			
-			if (checkin.before(now) || checkout.before(now)) {
-				System.out.println("As datas devem ser futuras.");
-			} else if (!checkout.after(checkin)) {
-				System.out.println("Data de CheckOut deve ser maior que a data de CheckIn.");
+			if (erro != null) {
+				System.out.println("Erro na reserva: " + erro);
 			} else {
-				r.atualizarDatas(checkin, checkout);
 				System.out.println(r);
 			}
 			

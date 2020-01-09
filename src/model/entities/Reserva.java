@@ -39,10 +39,23 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public void atualizarDatas(Date checkin, Date checkout) {
+	public String atualizarDatas(Date checkin, Date checkout) {
+		Date now = new Date();
+		
+		if (checkin.before(now) || checkout.before(now)) {
+			return "As datas devem ser futuras.";
+		} 
+
+		if (!checkout.after(checkin)) {
+			return "Data de CheckOut deve ser maior que a data de CheckIn.";
+		}
+		
 		this.checkin = checkin;
 		this.checkout = checkout;
+		
+		return null;
 	}
+		
 	@Override
 	public String toString() {
 		return "Reserva: Quarto " + this.getNumQuarto() + ", check-in: " + sdf.format(this.getCheckin()) + ", check-out: " + sdf.format(this.getCheckout()) + ", duração: "+ this.duracao() +" noites.";		
